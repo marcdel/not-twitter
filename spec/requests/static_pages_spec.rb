@@ -3,35 +3,32 @@ require 'spec_helper'
 describe 'Static pages' do
 
   describe 'Home page' do
-
     it "should have the h1 'Not Twitter'" do
       visit '/static_pages/home'
-      page.should have_selector('h1', :text => 'Not Twitter')
+      page.should have_selector('h1', text: 'Not Twitter')
     end
 
     it "should have the title 'Home'" do
       visit '/static_pages/home'
       page.should have_selector('title',
-                                :text => 'Not Twitter | Home')
+                                text: 'Not Twitter | Home')
     end
   end
 
   describe 'Help page' do
-
     it "should have the h1 'Help'" do
       visit '/static_pages/help'
-      page.should have_selector('h1', :text => 'Help')
+      page.should have_selector('h1', text: 'Help')
     end
 
     it "should have the title 'Help'" do
       visit '/static_pages/help'
       page.should have_selector('title',
-                                :text => 'Not Twitter | Help')
+                                text: 'Not Twitter | Help')
     end
   end
 
-  describe "About page" do
-
+  describe 'About page' do
     it "should have the h1 'About Us'" do
       visit '/static_pages/about'
       page.should have_selector('h1', :text => 'About Us')
@@ -40,7 +37,21 @@ describe 'Static pages' do
     it "should have the title 'About Us'" do
       visit '/static_pages/about'
       page.should have_selector('title',
-                                :text => 'Not Twitter | About Us')
+                                text: 'Not Twitter | About Us')
+    end
+  end
+
+  describe 'Contact page' do
+    it "should have the h1 'Contact'" do
+      visit '/static_pages/contact'
+      page.should have_selector('h1', text: 'Contact')
+    end
+
+    it "should have the title 'Contact'" do
+      visit '/static_pages/contact' do
+        page.should have_selector('title',
+                                  text: 'Not Twitter | About Us')
+      end
     end
   end
 end
