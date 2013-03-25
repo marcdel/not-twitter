@@ -1,5 +1,5 @@
 NotTwitter::Application.routes.draw do
-  get 'users/new'
+  resources :users
 
   # Custom routes
   get '/signup',  to: 'users#new'
