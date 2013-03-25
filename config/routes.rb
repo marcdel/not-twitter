@@ -1,14 +1,15 @@
 NotTwitter::Application.routes.draw do
-  # Two new ways to write routes in rails 4.
-  # Just using match allows post/put/update/delete.
-  # Not that it matters with static pages...
-  # match '/home', to: 'static_pages#home', via: post
-  # post '/home', to: 'static_pages#home'
+  get 'users/new'
 
+  # Custom routes
+  get '/signup',  to: 'users#new'
+
+  # Static pages
   root to: 'static_pages#home'
   get '/help', to: 'static_pages#help'
   get '/about', to: 'static_pages#about'
   get '/contact', to: 'static_pages#contact'
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
