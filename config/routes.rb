@@ -1,8 +1,11 @@
 NotTwitter::Application.routes.draw do
   resources :users
+  resources :sessions, only: [:new, :create, :destroy]
 
   # Custom routes
   get '/signup',  to: 'users#new'
+  get '/signin',  to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete
 
   # Static pages
   root to: 'static_pages#home'

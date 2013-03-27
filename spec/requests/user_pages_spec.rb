@@ -10,7 +10,7 @@ describe 'User pages' do
     it { should have_selector('title', text: 'Sign Up') }
   end
 
-  describe 'profile page' do
+  describe 'Profile page' do
     let(:user) { FactoryGirl.create(:user) }
     before { visit user_path(user) }
 
@@ -18,7 +18,7 @@ describe 'User pages' do
     it { should have_selector('title', text: user.name) }
   end
 
-  describe 'signup' do
+  describe 'Sign Up' do
 
     before { visit signup_path }
 
