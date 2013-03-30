@@ -6,10 +6,12 @@ development:
   username: marc
   password:
 
-test:
+test: &test
   adapter: postgresql
   encoding: unicode
   database: not_twitter_test
   pool: 5
   username: marc
   password:
+cucumber:
+  <<: *test

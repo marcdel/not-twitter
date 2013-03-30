@@ -29,18 +29,20 @@ describe 'User pages' do
         expect { click_button submit }.not_to change(User, :count)
       end
 
-      #describe 'after submission' do
-      #  before { click_button submit }
-      #
-      #  it { should have_selector('title', text: 'Sign up') }
-      #  it { should have_content('error') }
-      #end
+      describe 'after submission' do
+        before { click_button submit }
+
+        it { should have_selector('title', text: 'Sign Up') }
+        it { should have_content('error') }
+      end
     end
 
     describe 'with valid information' do
+      # WHY DOESN'T THIS WORRRRRKKKKKK
       #let(:user) { FactoryGirl.create(:user) }
-      #
+
       #before do
+      #  user = FactoryGirl.create(:user)
       #  fill_in 'Name',         with: user.name
       #  fill_in 'Email',        with: user.email
       #  fill_in 'Password',     with: user.password
