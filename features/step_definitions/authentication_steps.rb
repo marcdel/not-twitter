@@ -11,8 +11,8 @@ Then /^the user should see an error message$/ do
 end
 
 Given /^the user has an account$/ do
-  @user = User.create(name: 'Example User', email: 'user@example.com',
-                      password: 'foobar', password_confirmation: 'foobar')
+  @user = User.create(name: 'User Name', email: 'user@email.com',
+                      password: 'password', password_confirmation: 'password')
 end
 
 When /^the user submits valid signin information$/ do

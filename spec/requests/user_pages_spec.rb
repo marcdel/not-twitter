@@ -4,19 +4,28 @@ describe 'User pages' do
   subject { page }
 
   describe 'index' do
-    before do
-      sign_in FactoryGirl.create(:user)
-      FactoryGirl.create(:user, name: 'Bob', email: 'bob@example.com')
-      FactoryGirl.create(:user, name: 'Ben', email: 'ben@example.com')
+
+    let(:user) { FactoryGirl.create(:user) }
+
+    before(:each) do
+      sign_in user
       visit users_path
     end
 
     it { should have_selector('title', text: 'All Users') }
     it { should have_selector('h1',    text: 'All Users') }
 
-    it 'should list each user' do
-      User.all.each do |user|
-        page.should have_selector('li', text: user.name)
+    describe 'pagination' do
+
+      before(:all) { 30.times { FactoryGirl.create(:user) } }
+      after(:all)  { User.delete_all }
+
+      it { should have_selector('div.pagination') }
+
+      it 'should list each user' do
+        User.paginate(page: 1).each do |user|
+          page.should have_selector('li', text: user.name)
+        end
       end
     end
   end
@@ -64,10 +73,10 @@ describe 'User pages' do
       #end
 
       before do
-        fill_in 'Name',         with: 'Example User'
-        fill_in 'Email',        with: 'user@example.com'
-        fill_in 'Password',     with: 'foobar'
-        fill_in 'Confirmation', with: 'foobar'
+        fill_in 'Name',         with: 'User Name'
+        fill_in 'Email',        with: 'user@email.com'
+        fill_in 'Password',     with: 'password'
+        fill_in 'Confirmation', with: 'password'
       end
 
       it 'should create a user' do
