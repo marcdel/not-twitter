@@ -1,10 +1,9 @@
 class StaticPagesController < ApplicationController
   def home
-    @micropost = current_user.microposts.build if signed_in?
-    @placeholders = ['Tell me more about your cat...',
-                     'What did you have for lunch?',
-                     "Ooooh, girl. No shit ditn't...",
-                     'Airline food IS terrible!']
+    if signed_in?
+      @micropost = current_user.microposts.build
+      @feed_items = current_user.feed.paginate(page: params[:page])
+    end
   end
 
   def help
