@@ -28,6 +28,28 @@ describe 'User pages' do
         end
       end
     end
+
+    describe 'delete links' do
+      let(:ban) { 'permaban' }
+
+      it { should_not have_link(ban) }
+
+      describe 'as an admin user' do
+        let(:admin) { FactoryGirl.create(:admin) }
+        before do
+          sign_in admin
+          visit users_path
+        end
+
+        it { should have_link(ban, href: user_path(User.first)) }
+
+        it 'should be able to delete another user' do
+          expect { click_link(ban) }.to change(User, :count).by(-1)
+        end
+
+        it { should_not have_link(ban, href: user_path(admin)) }
+      end
+    end
   end
 
   describe 'Profile page' do
