@@ -3,11 +3,22 @@ require 'spec_helper'
 describe 'User pages' do
   subject { page }
 
-  describe 'Sign Up page' do
-    before { visit signup_path }
+  describe 'index' do
+    before do
+      sign_in FactoryGirl.create(:user)
+      FactoryGirl.create(:user, name: 'Bob', email: 'bob@example.com')
+      FactoryGirl.create(:user, name: 'Ben', email: 'ben@example.com')
+      visit users_path
+    end
 
-    it { should have_selector('h1', text: 'Sign Up') }
-    it { should have_selector('title', text: 'Sign Up') }
+    it { should have_selector('title', text: 'All Users') }
+    it { should have_selector('h1',    text: 'All Users') }
+
+    it 'should list each user' do
+      User.all.each do |user|
+        page.should have_selector('li', text: user.name)
+      end
+    end
   end
 
   describe 'Profile page' do
@@ -23,6 +34,9 @@ describe 'User pages' do
     before { visit signup_path }
 
     let(:submit) { 'Create Account' }
+
+    it { should have_selector('h1', text: 'Sign Up') }
+    it { should have_selector('title', text: 'Sign Up') }
 
     describe 'with invalid information' do
       it 'should not create a user' do
